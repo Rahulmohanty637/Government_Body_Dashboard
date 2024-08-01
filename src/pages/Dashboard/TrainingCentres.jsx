@@ -1,7 +1,34 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 
 const TrainingCenters = () => {
+  useEffect(() => {
+    const fetchData = async (e) => {
+      try {
+        const state = localStorage.getItem("state");
+        const scheme = localStorage.getItem("scheme");
+        console.log(state);
+        console.log(scheme);
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/sna/centers/query?state=${state}&schemeName=${scheme}`
+        );
+        const { data } = response;
+        console.log(data);
+        // console.log(data.state);
+        // localStorage.setItem("state", data.state);
+
+        // navigate("/dashboard");  
+      } catch (error) {
+        console.log(error);
+        // setErrorMessage(
+        //   "Login failed. Please check your credentials and try again."
+        // );
+      }
+    };
+
+    fetchData();
+  });
   return (
     <div className="overflow-x-auto rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold">Training Batches</h1>

@@ -9,16 +9,18 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import TrainingCenters from "./pages/Dashboard/TrainingCentres";
 import BatchTable from "./pages/Dashboard/TrainingBatches";
 import BatchDetails from "./pages/Dashboard/BatchDetails";
+import SNALogin from "./pages/Dashboard/SNALogin";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
+        <Route path="login" element={<SNALogin />} />
         <Route path="/" element={<Layout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="trainingcenters" element={<TrainingCenters />} />
           <Route path="trainingbatches" element={<BatchTable />} />
-          <Route path="batchdetailas" element={<BatchDetails />} />
+          <Route path="batchdetails" element={<BatchDetails />} />
         </Route>
       </Route>
     )

@@ -1,7 +1,42 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BatchTable = () => {
+  const [batchData, setBatchData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const state = localStorage.getItem("state");
+        const scheme = localStorage.getItem("scheme");
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/sna/batch/query?state=${state}&scheme=${scheme}`
+        );
+
+        if (response.data && Array.isArray(response.data.data)) {
+          setBatchData(response.data.data); // Ensure response data is an array
+        } else {
+          console.error("Unexpected response format", response.data);
+          setBatchData([]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleRowClick = (
+
+    batchId,
+  ) => {
+    navigate(`/dashboard/students/${batchId}`);
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold">Training Batches</h1>
@@ -19,36 +54,33 @@ const BatchTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="py-2 px-4 border-b text-center">TP 1</td>
-            <td className="py-2 px-4 border-b text-center">ABN1234</td>
-            <td className="py-2 px-4 border-b text-center">50</td>
-            <td className="py-2 px-4 border-b text-center">
-              <span className="inline-block px-2 py-1 text-white bg-green-500 rounded-full">
-                Approved
-              </span>
-            </td>
-            <td className="py-2 px-4 border-b text-center">
-              <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">
-                View Details
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td className="py-2 px-4 border-b text-center">TP 1</td>
-            <td className="py-2 px-4 border-b text-center">ABN1234</td>
-            <td className="py-2 px-4 border-b text-center">50</td>
-            <td className="py-2 px-4 border-b text-center">
-              <span className="inline-block px-2 py-1 text-white bg-green-500 rounded-full">
-                Approved
-              </span>
-            </td>
-            <td className="py-2 px-4 border-b text-center">
-              <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">
-                View Details
-              </button>
-            </td>
-          </tr>
+          {batchData.map((batch) => (
+            <tr key={batch._id}>
+              <td className="py-2 px-4 border-b text-center">
+                {batch.trainingOrganization}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {batch.ABN_Number}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                {batch.students.length}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                <span
+                  className={`inline-block px-2 py-1 text-white ${
+                    batch.status === "Approved" ? "bg-green-500" : "bg-red-500"
+                  } rounded-full`}
+                >
+                  {batch.status}
+                </span>
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">
+                  View Details
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

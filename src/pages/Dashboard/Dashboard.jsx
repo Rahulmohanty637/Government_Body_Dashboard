@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { FaBuilding, FaCalendar, FaRegBuilding } from "react-icons/fa"; // Example icons
 
 const Card = ({ title, count, pending, approved, icon }) => {
@@ -22,6 +23,38 @@ const Card = ({ title, count, pending, approved, icon }) => {
 };
 
 const Dashboard = () => {
+  useEffect(() => {
+    const fetchData = async (e) => {
+      try {
+        const state = localStorage.getItem("state");
+        const scheme = localStorage.getItem("scheme");
+        console.log(state);
+        console.log(scheme);
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/sna/batch/query`,
+          {
+            params: {
+              state,
+              scheme,
+            },
+          }
+        );
+        const { data } = response;
+        console.log(data)
+        // console.log(data.state);
+        // localStorage.setItem("state", data.state);
+
+        // navigate("/dashboard");
+      } catch (error) {
+        console.log(error);
+        // setErrorMessage(
+        //   "Login failed. Please check your credentials and try again."
+        // );
+      }
+    };
+
+    fetchData();
+  });
   return (
     <>
       <div className="flex flex-wrap justify-around">
