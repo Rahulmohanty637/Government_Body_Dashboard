@@ -10,17 +10,20 @@ import TrainingCenters from "./pages/Dashboard/TrainingCentres";
 import BatchTable from "./pages/Dashboard/TrainingBatches";
 import BatchDetails from "./pages/Dashboard/BatchDetails";
 import SNALogin from "./pages/Dashboard/SNALogin";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
         <Route path="login" element={<SNALogin />} />
-        <Route path="/" element={<Layout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="trainingcenters" element={<TrainingCenters />} />
-          <Route path="trainingbatches" element={<BatchTable />} />
-          <Route path="batchdetails" element={<BatchDetails />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/" element={<Layout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="trainingcenters" element={<TrainingCenters />} />
+            <Route path="trainingbatches" element={<BatchTable />} />
+            <Route path="batchdetails/:batchId" element={<BatchDetails />} />
+          </Route>
         </Route>
       </Route>
     )

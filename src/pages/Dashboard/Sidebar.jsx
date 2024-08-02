@@ -27,8 +27,8 @@ const routes = [
     icon: <FaClipboardList />,
   },
   {
-    path: "/usermanagement",
-    name: "User Management",
+    path: "/reports",
+    name: "Reports",
     icon: <FaUsers />,
   },
 ];
@@ -38,11 +38,11 @@ const SideBar = () => {
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
 
-  //   const handleLogout = () => {
-  //     localStorage.removeItem("aaAuthToken");
-  //     const token = localStorage.getItem("aaAuthToken");
-  //     navigate("/login");
-  //   };
+  const handleLogout = () => {
+    localStorage.removeItem("state");
+    localStorage.removeItem("scheme");
+    navigate("/login");
+  };
 
   return (
     <div
@@ -52,7 +52,7 @@ const SideBar = () => {
     >
       <div className="p-4 text-lg font-semibold border-b border-gray-700 flex justify-between items-center">
         <span className={`${isOpen ? "block" : "hidden"} lg:block`}>
-          Skill Assessment Dashboard
+          SNA Dashboard
         </span>
         <FaBars onClick={toggle} className="cursor-pointer" />
       </div>
@@ -73,7 +73,7 @@ const SideBar = () => {
         </div>
         <button
           className="flex items-center mt-2 space-x-2 bg-red-500 text-white px-4 py-2 rounded-md"
-          //   onClick={handleLogout}
+          onClick={handleLogout}
         >
           <FaSignOutAlt /> logout
         </button>

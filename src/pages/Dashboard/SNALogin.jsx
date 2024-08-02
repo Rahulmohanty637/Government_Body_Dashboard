@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 // import image from "../../../assets/poorpeople.png";
@@ -14,6 +14,11 @@ const SNALogin = () => {
     scheme: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    localStorage.removeItem("state");
+    localStorage.removeItem("scheme");
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -15,7 +15,7 @@ const BatchTable = () => {
         const response = await axios.get(
           `http://localhost:8000/api/v1/sna/batch/query?state=${state}&scheme=${scheme}`
         );
-
+        console.log(response);
         if (response.data && Array.isArray(response.data.data)) {
           setBatchData(response.data.data); // Ensure response data is an array
         } else {
@@ -30,11 +30,9 @@ const BatchTable = () => {
     fetchData();
   }, []);
 
-  const handleRowClick = (
-
-    batchId,
-  ) => {
-    navigate(`/dashboard/students/${batchId}`);
+  const handleRowClick = (batchId) => {
+    console.log(batchId);
+    navigate(`/batchdetails/${batchId}`);
   };
 
   return (
@@ -55,7 +53,7 @@ const BatchTable = () => {
         </thead>
         <tbody>
           {batchData.map((batch) => (
-            <tr key={batch._id}>
+            <tr key={batch._id} onClick={() => handleRowClick(batch._id)}>
               <td className="py-2 px-4 border-b text-center">
                 {batch.trainingOrganization}
               </td>

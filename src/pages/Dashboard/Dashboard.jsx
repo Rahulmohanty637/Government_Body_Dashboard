@@ -41,15 +41,8 @@ const Dashboard = () => {
         );
         const { data } = response;
         console.log(data)
-        // console.log(data.state);
-        // localStorage.setItem("state", data.state);
-
-        // navigate("/dashboard");
       } catch (error) {
         console.log(error);
-        // setErrorMessage(
-        //   "Login failed. Please check your credentials and try again."
-        // );
       }
     };
 
@@ -60,23 +53,23 @@ const Dashboard = () => {
       <div className="flex flex-wrap justify-around">
         <Card
           title="Total Training Centers"
-          count={120} // Example count
-          pending={10} // Example pending count
-          approved={110} // Example approved count
+          count={120} 
+          pending={10} 
+          approved={110} 
           icon={<FaBuilding />}
         />
         <Card
           title="Total Batches"
-          count={45} // Example count
-          pending={5} // Example pending count
-          approved={40} // Example approved count
+          count={45} 
+          pending={5}
+          approved={40} 
           icon={<FaCalendar />}
         />
         <Card
           title="Agencies Registered"
-          count={30} // Example count
-          pending={2} // Example pending count
-          approved={28} // Example approved count
+          count={30} 
+          pending={2} 
+          approved={28}   
           icon={<FaRegBuilding />}
         />
       </div>
