@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 
 const TrainingCenters = () => {
   const [centerDetails, setCenterDetails] = useState([]);
+  const [centerId, setCenterId] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      
       try {
         const state = localStorage.getItem("state");
         const scheme = localStorage.getItem("scheme");
@@ -27,6 +27,32 @@ const TrainingCenters = () => {
 
     fetchData();
   }, []);
+
+  const handleApproval = async (centerId) => {
+    const state = localStorage.getItem("state");
+    const schemeName = localStorage.getItem("scheme");
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/sna/center/approve/${centerId}`,
+        { state, schemeName }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRejection = async (centerId) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/v1/sna/center/reject/${centerId}`
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="overflow-x-auto rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold">Training Batches</h1>
@@ -47,9 +73,13 @@ const TrainingCenters = () => {
         <tbody>
           {centerDetails.map((center) => (
             <tr key={center._id}>
-              <td className="py-2 px-4 border-b text-center">{center.centerId}</td>
+              <td className="py-2 px-4 border-b text-center">
+                {center.centerId}
+              </td>
               <td className="py-2 px-4 border-b text-center">{center.name}</td>
-              <td className="py-2 px-4 border-b text-center">{center.PRN_NO}</td>
+              <td className="py-2 px-4 border-b text-center">
+                {center.PRN_NO}
+              </td>
               <td className="py-2 px-4 border-b text-center">
                 <a
                   href={center.sanction_order_letter}
@@ -62,10 +92,16 @@ const TrainingCenters = () => {
               </td>
               <td className="py-2 px-4 border-b text-center">{center.state}</td>
               <td className="py-2 px-4 border-b text-center">
-                <button className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-blue-600 transition duration-300">
+                <button
+                  onClick={() => handleApproval(center._id)}
+                  className="px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-blue-600 transition duration-300"
+                >
                   Approve
                 </button>
-                <button className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition duration-300 ml-2">
+                <button
+                  onClick={() => handleRejection(center._id)}
+                  className="px-4 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition duration-300 ml-2"
+                >
                   Reject
                 </button>
               </td>
