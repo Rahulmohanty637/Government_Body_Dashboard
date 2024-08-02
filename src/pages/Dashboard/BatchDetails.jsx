@@ -1,10 +1,12 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BatchDetails = () => {
   const { batchId } = useParams();
+  const navigate = useNavigate();
   const [batchDetails, setBatchDetails] = useState([]);
 
   useEffect(() => {
@@ -36,7 +38,10 @@ const BatchDetails = () => {
       ? new Date(value).toLocaleDateString()
       : value;
     return (
-      <div className="flex justify-normal gap-2 border-2 rounded p-2" key={label}>
+      <div
+        className="flex justify-normal gap-2 border-2 rounded p-2"
+        key={label}
+      >
         <span className="font-semibold text-gray-700">{formattedLabel}:</span>
         <span className="text-gray-900">
           {Array.isArray(formattedValue)
@@ -54,6 +59,8 @@ const BatchDetails = () => {
         `http://localhost:8000/api/v1/sna/batch/approve/${batchId}`
       );
       console.log(response);
+      toast.success("Batch Approved Successfully");
+      navigate("/trainingbatches");
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +73,7 @@ const BatchDetails = () => {
         `http://localhost:8000/api/v1/sna/batch/approve/${batchId}`
       );
       console.log(response);
+      navigate("/trainingbatches");
     } catch (error) {
       console.log(error);
     }
@@ -163,6 +171,7 @@ const BatchDetails = () => {
           </button>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

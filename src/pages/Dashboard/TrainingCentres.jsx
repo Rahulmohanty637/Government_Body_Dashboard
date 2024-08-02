@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 
 const TrainingCenters = () => {
   const [centerDetails, setCenterDetails] = useState([]);
-  const [centerId, setCenterId] = useState("");
+  const state = localStorage.getItem("state");
+  const schemeName = localStorage.getItem("scheme");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,14 +30,13 @@ const TrainingCenters = () => {
   }, []);
 
   const handleApproval = async (centerId) => {
-    const state = localStorage.getItem("state");
-    const schemeName = localStorage.getItem("scheme");
     try {
       const response = await axios.put(
         `http://localhost:8000/api/v1/sna/center/approve/${centerId}`,
         { state, schemeName }
       );
       console.log(response);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -45,9 +45,11 @@ const TrainingCenters = () => {
   const handleRejection = async (centerId) => {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/v1/sna/center/reject/${centerId}`
+        `http://localhost:8000/api/v1/sna/center/reject/${centerId}`,
+        { state, schemeName }
       );
       console.log(response);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

@@ -5,8 +5,41 @@ import axios from "axios";
 // import image from "../../../assets/poorpeople.png";
 import { Link, useNavigate } from "react-router-dom";
 
+const indianStates = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+];
+
 const SNALogin = () => {
   const navigate = useNavigate();
+  const [selectedState, setSelectedState] = useState("");
+  const [schemes, setSchemes] = useState([]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -19,6 +52,23 @@ const SNALogin = () => {
     localStorage.removeItem("state");
     localStorage.removeItem("scheme");
   }, []);
+
+  useEffect(() => {
+    const fetchSchemes = async (state) => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/v1/schemes?state=${state}`
+        );
+        setSchemes(response.data);
+      } catch (error) {
+        console.error("Error fetching schemes:", error);
+      }
+    };
+
+    if (selectedState) {
+      fetchSchemes(selectedState);
+    }
+  }, [selectedState]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -86,6 +136,32 @@ const SNALogin = () => {
               onChange={handleChange}
               className="p-2 rounded-xl border"
             />
+            <div>
+              <label htmlFor="state">Select State:</label>
+              <select
+                id="state"
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
+              >
+                <option value="">--Select State--</option>
+                {indianStates.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="scheme">Select Scheme:</label>
+              <select id="scheme" disabled={!selectedState}>
+                <option value="">--Select Scheme--</option>
+                {schemes.map((scheme) => (
+                  <option key={scheme.id} value={scheme.id}>
+                    {scheme.name}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button
               type="submit"
               className="bg-green-800 rounded-2xl text-white py-2"
