@@ -36,7 +36,7 @@ const BatchTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto rounded-lg shadow-lg">
+    <div className="overflow-x-auto p-2 rounded-md shadow-sm">
       <h1 className="text-2xl font-bold">Training Batches</h1>
       <p className="text-gray-600 mb-4">
         View and manage the training batches submitted by the Training Agency.

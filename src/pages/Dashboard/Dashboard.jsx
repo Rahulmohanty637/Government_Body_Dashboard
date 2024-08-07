@@ -3,6 +3,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { FaBuilding, FaCalendar, FaRegBuilding } from "react-icons/fa"; // Example icons
+import TrainingCenters from "./TrainingCentres";
+import TrainingBatches from "./TrainingBatches";
 
 const Card = ({ title, count, pending, approved, icon }) => {
   return (
@@ -40,7 +42,7 @@ const Dashboard = () => {
           }
         );
         const { data } = response;
-        console.log(data)
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -53,132 +55,32 @@ const Dashboard = () => {
       <div className="flex flex-wrap justify-around">
         <Card
           title="Total Training Centers"
-          count={120} 
-          pending={10} 
-          approved={110} 
+          count={120}
+          pending={10}
+          approved={110}
           icon={<FaBuilding />}
         />
         <Card
           title="Total Batches"
-          count={45} 
+          count={45}
           pending={5}
-          approved={40} 
+          approved={40}
           icon={<FaCalendar />}
         />
         <Card
           title="Agencies Registered"
-          count={30} 
-          pending={2} 
-          approved={28}   
+          count={30}
+          pending={2}
+          approved={28}
           icon={<FaRegBuilding />}
         />
       </div>
       <div className="overflow-x-auto rounded-lg shadow-lg bg-white mt-4 p-4">
-        <div className="p-3">
-          <h1 className="text-2xl font-bold">Training Centers</h1>
-          <p className="text-gray-600 mb-4">
-            View and manage the training centers submitted by the Training
-            Agency.
-          </p>
-        </div>
-        <table className="min-w-full bg-white border rounded-md">
-          <thead className="rounded-md bg-gray-800 text-white">
-            <tr>
-              <th className="py-2 px-4 border-b">TP Name</th>
-              <th className="py-2 px-4 border-b">Center Name</th>
-              <th className="py-2 px-4 border-b">Location</th>
-              <th className="py-2 px-4 border-b">Scheme</th>
-              <th className="py-2 px-4 border-b">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="py-2 px-4 border-b text-center">TP 1</td>
-              <td className="py-2 px-4 border-b text-center">
-                Acme Training Center
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                New Delhi, India
-              </td>
-              <td className="py-2 px-4 border-b text-center">XYZ</td>
-              <td className="py-2 px-4 border-b text-center">
-                <span className="inline-block px-2 py-1 text-white bg-green-500 rounded-full">
-                  Approved
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td className="py-2 px-4 border-b text-center">TP 2</td>
-              <td className="py-2 px-4 border-b text-center">
-                Acme Training Center
-              </td>
-              <td className="py-2 px-4 border-b text-center">
-                New Delhi, India
-              </td>
-              <td className="py-2 px-4 border-b text-center">XYZ</td>
-              <td className="py-2 px-4 border-b text-center">
-                <span className="inline-block px-2 py-1 text-white bg-yellow-500 rounded-full">
-                  Pending
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <TrainingCenters />
       </div>
 
       <div className="bg-white rounded-lg shadow-lg mt-4 p-4">
-        <div className="overflow-x-auto">
-          <div className="p-3">
-            <h1 className="text-2xl font-bold">Training Batches</h1>
-            <p className="text-gray-600 mb-4">
-              View and manage the training batches submitted by the Training
-              Agency.
-            </p>
-          </div>
-          <table className="min-w-full bg-white border">
-            <thead className="bg-gray-800 text-white">
-              <tr>
-                <th className="py-2 px-4 border-b">TP Name</th>
-                <th className="py-2 px-4 border-b">Batch ABN</th>
-                <th className="py-2 px-4 border-b">Students</th>
-                <th className="py-2 px-4 border-b">Status</th>
-                <th className="py-2 px-4 border-b">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="py-2 px-4 border-b text-center">TP 1</td>
-                <td className="py-2 px-4 border-b text-center">ABN1234</td>
-                <td className="py-2 px-4 border-b text-center">50</td>
-                <td className="py-2 px-4 border-b text-center">
-                  <span className="inline-block px-2 py-1 text-white bg-green-500 rounded-full">
-                    Approved
-                  </span>
-                </td>
-                <td className="py-2 px-4 border-b text-center">
-                  <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">
-                    View Details
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4 border-b text-center">TP 1</td>
-                <td className="py-2 px-4 border-b text-center">ABN1234</td>
-                <td className="py-2 px-4 border-b text-center">50</td>
-                <td className="py-2 px-4 border-b text-center">
-                  <span className="inline-block px-2 py-1 text-white bg-green-500 rounded-full">
-                    Approved
-                  </span>
-                </td>
-                <td className="py-2 px-4 border-b text-center">
-                  <button className="px-4 py-2 text-white bg-blue-500 rounded-lg">
-                    View Details
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <TrainingBatches />
       </div>
     </>
   );
