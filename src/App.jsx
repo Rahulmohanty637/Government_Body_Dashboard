@@ -14,6 +14,7 @@ import SNAProtectedRoutes from "./utils/SNAProtectedRoutes";
 import Marksheet from "./pages/Dashboard/Marksheet";
 import ViewResult from "./pages/Dashboard/ViewResult";
 import IndividualStudentMarksheet from "./pages/Dashboard/IndividualStudentMarksheet";
+import ViewReports from "./pages/Dashboard/ViewReports";
 
 function App() {
   const router = createBrowserRouter(
@@ -26,6 +27,7 @@ function App() {
             <Route path="trainingcenters" element={<TCDetails />} />
             <Route path="trainingbatches" element={<TBDetails />} />
             <Route path="batchdetails/:batchId" element={<BatchDetails />} />
+            <Route path="reports" element={<ViewReports/>}/>
             <Route path="marks" element={<Marksheet />} />
             <Route path="batchresult/:batchId" element={<ViewResult />} />
             <Route
