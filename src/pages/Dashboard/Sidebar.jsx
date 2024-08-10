@@ -6,6 +6,7 @@ import {
   FaBuilding,
   FaClipboardList,
   FaUsers,
+  FaRegFileAlt,
 } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +31,11 @@ const routes = [
     path: "/reports",
     name: "Reports",
     icon: <FaUsers />,
+  },
+  {
+    path: "/marks",
+    name: "Marks",
+    icon: <FaRegFileAlt />,
   },
 ];
 

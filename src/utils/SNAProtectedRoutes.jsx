@@ -2,7 +2,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoutes = () => {
+const SNAProtectedRoutes = () => {
   const state = localStorage.getItem("state");
   if (!state) {
     return <Navigate to="/login" />;
@@ -10,4 +10,4 @@ const ProtectedRoutes = () => {
   return <Outlet />;
 };
 
-export default ProtectedRoutes;
+export default SNAProtectedRoutes;
