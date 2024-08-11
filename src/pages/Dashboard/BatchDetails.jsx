@@ -28,6 +28,7 @@ const BatchDetails = () => {
       }
     };
     fetchBatchDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [batchId]);
 
   const renderDetailsSection = (details, keys, isDate = false) => {
