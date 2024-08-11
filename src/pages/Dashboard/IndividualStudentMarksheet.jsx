@@ -20,6 +20,7 @@ const IndividualStudentMarksheet = () => {
     };
 
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="max-w-3xl mx-auto p-8 border border-green-600 rounded-lg font-cambria">
