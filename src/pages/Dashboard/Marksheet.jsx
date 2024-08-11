@@ -48,6 +48,7 @@ const Marksheet = () => {
             <th className="py-2 px-4 border-b">Center</th>
             <th className="py-2 px-4 border-b">Course</th>
             <th className="py-2 px-4 border-b">Students</th>
+            <th className="py-2 px-4 border-b">Status</th>
             <th className="py-2 px-4 border-b">Result Published</th>
           </tr>
         </thead>
@@ -68,6 +69,17 @@ const Marksheet = () => {
               </td>
               <td className="py-2 px-4 border-b text-center">
                 {batch.students.length}
+              </td>
+              <td className="py-2 px-4 border-b text-center">
+                <span
+                  className={`inline-block px-2 py-1 text-white ${
+                    batch.status === "onGoing"
+                      ? "bg-red-500"
+                      : "bg-green-500"
+                  } rounded-full`}
+                >
+                  {batch.status}
+                </span>
               </td>
               <td className="py-2 px-4 border-b text-center">
                 <span

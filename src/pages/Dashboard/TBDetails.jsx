@@ -48,7 +48,7 @@ const TBDetails = () => {
             <th className="py-2 px-4 border-b">Center</th>
             <th className="py-2 px-4 border-b">Course</th>
             <th className="py-2 px-4 border-b">Students</th>
-            <th className="py-2 px-4 border-b">Result Published</th>
+            <th className="py-2 px-4 border-b">Approval Status</th>
           </tr>
         </thead>
         <tbody>
@@ -72,7 +72,7 @@ const TBDetails = () => {
               <td className="py-2 px-4 border-b text-center">
                 <span
                   className={`inline-block px-2 py-1 text-white ${
-                    batch.resultPublished === "true"
+                    batch.approvedByGovernmentBody === "true"
                       ? "bg-green-500"
                       : "bg-red-500"
                   } rounded-full`}
